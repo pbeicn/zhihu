@@ -67,6 +67,7 @@
 </template>
 <script>
 import Header from "@/components/header/header.vue";
+import { Dialog } from "vant";
 export default {
   components: { Header },
   data() {
@@ -84,6 +85,13 @@ export default {
   methods: {
     regUser() {
       window.console.log(this.user);
+      if (this.user.password != this.user.reppassword) {
+        Dialog.alert({
+          message: "两次密码输入不一致"
+        }).then(() => {
+          // on close
+        });
+      }
       this.$ajax
         .put("/api/v1/register/user", this.user)
         .then(res => {
