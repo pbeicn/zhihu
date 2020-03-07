@@ -15,7 +15,7 @@ import {
 } from "@fortawesome/vue-fontawesome";
 import Vant from "vant";
 import "vant/lib/index.css";
-import "@/assets/myvant.css";
+import "@/assets/mm.css";
 
 library.add(fas, far, fab);
 
