@@ -2,8 +2,8 @@
 module.exports = {
   devServer: {
     proxy: {
-      "/youzhan": {
-        target: "http://127.0.0.1:8080",
+      "/sisp-business": {
+        target: "http://211.143.59.146:9045",
         ws: true,
         changeOrigin: true
       }

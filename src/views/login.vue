@@ -86,7 +86,9 @@ export default {
       // alert(this.username);
       // alert(this.password);
       this.$ajax
-        .post("/api/login", this.logininfo)
+        .get(
+          "/sisp-business/api/v0/person/personinfo/baseAndInsInfoByAae135AndAae140/130921198901162231/31"
+        )
         .then(res => {
           window.console.log(res);
         })

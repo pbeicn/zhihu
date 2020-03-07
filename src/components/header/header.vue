@@ -1,6 +1,8 @@
 <template>
   <div class="box_reg box_reg-center">
-    <div class="reg_h2">返回</div>
+    <div class="reg_h2">
+      <router-link to="/" style="color: #108EE9">返回</router-link>
+    </div>
     <div class="reg_h3">{{ title }}</div>
   </div>
 </template>

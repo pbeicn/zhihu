@@ -8,39 +8,37 @@
     <br />
     <div class="box">
       <div>
-        <van-form @submit="onSubmit">
+        <van-form @submit="regUser">
           <van-field
-            v-model="username"
-            name="请输入注册手机号码"
+            v-model="user.phone"
+            name=""
             class="input3"
             label=""
-            :border="aborder"
             placeholder="请输入注册手机号码"
+            :rules="[{ required: true, message: '请填写手机号码' }]"
           />
+          <br />
           <van-field
-            v-model="username"
-            name="请输入短信验证码"
-            class="input3"
-            label=""
-            :border="aborder"
-            placeholder="请输入短信验证码"
-          />
-          <van-field
-            v-model="password"
+            v-model="user.password"
             type="password"
-            name="请设置6-20位登录密码"
+            name=""
             class="input3"
             label=""
             placeholder="请设置6-20位登录密码"
+            :rules="[{ required: true, message: '请设置6-20位登录密码' }]"
           />
+          <br />
           <van-field
-            v-model="password"
+            v-model="user.reppassword"
             type="password"
-            name="请设置6-20位登录密码"
+            name=""
             class="input3"
             label=""
-            placeholder="请设置6-20位登录密码"
+            placeholder="请再次确认登录密码"
+            :rules="[{ required: true, message: '请再次确认登录密码' }]"
           />
+          <br />
+          <br />
           <br />
           <br />
           <div>
@@ -51,10 +49,18 @@
               class="input3"
               native-type="submit"
             >
-              登录
+              注册
             </van-button>
           </div>
         </van-form>
+      </div>
+    </div>
+    <br />
+    <div class="box1">
+      <div>
+        <router-link to="/" style="color: #108EE9"
+          >已有帐户,立即登录</router-link
+        >
       </div>
     </div>
   </div>
@@ -67,11 +73,16 @@ export default {
     return {
       titlemsg: "新用户注册",
       name: "ss",
-      tipinfo: ""
+      tipinfo: "",
+      user: {
+        phone: "",
+        password: "",
+        reppassword: ""
+      }
     };
   },
   methods: {
-    regPatient() {
+    regUser() {
       window.console.log(this.user);
       this.$ajax
         .put("/api/v1/register/user", this.user)
@@ -117,8 +128,11 @@ export default {
   width: 700px;
   text-align: center;
 }
+.box1 {
+  justify-content: center;
+}
 .input3 {
-  font-size: 40px;
+  font-size: 30px;
   height: 80px;
 }
 </style>
