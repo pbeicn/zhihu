@@ -1,18 +1,16 @@
 <template>
   <div>
-    <div id="reg" class="reg_reg">
+    <div id="reg">
       <Header :title="titlemsg"></Header>
     </div>
     <br />
     <br />
-    <br />
-    <div class="box">
+    <div>
       <div>
         <van-form @submit="regUser">
           <van-field
             v-model="user.phone"
             name=""
-            class="input3"
             label=""
             placeholder="请输入注册手机号码"
             :rules="[{ required: true, message: '请填写手机号码' }]"
@@ -22,7 +20,6 @@
             v-model="user.password"
             type="password"
             name=""
-            class="input3"
             label=""
             placeholder="请设置6-20位登录密码"
             :rules="[{ required: true, message: '请设置6-20位登录密码' }]"
@@ -32,7 +29,6 @@
             v-model="user.reppassword"
             type="password"
             name=""
-            class="input3"
             label=""
             placeholder="请再次确认登录密码"
             :rules="[{ required: true, message: '请再次确认登录密码' }]"
@@ -42,13 +38,7 @@
           <br />
           <br />
           <div>
-            <van-button
-              round
-              block
-              type="info"
-              class="input3"
-              native-type="submit"
-            >
+            <van-button round block type="info" native-type="submit">
               注册
             </van-button>
           </div>
@@ -114,33 +104,13 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.reg_reg {
-  background: rgba(245, 245, 245, 1);
-  position: relative;
-}
-.reg_h3 {
-  width: 390px;
-  height: 50px;
-  font-size: 36px;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 800;
-  color: rgba(51, 51, 51, 1);
-  line-height: 50px;
-}
 .box {
-  width: 750px;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 .box div {
-  width: 700px;
+  width: 100%;
   text-align: center;
-}
-.box1 {
-  justify-content: center;
-}
-.input3 {
-  font-size: 30px;
-  height: 80px;
 }
 </style>

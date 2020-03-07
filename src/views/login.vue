@@ -46,13 +46,7 @@
           <br />
           <br />
           <div>
-            <van-button
-              round
-              block
-              type="info"
-              class="input3"
-              native-type="submit"
-            >
+            <van-button round block type="info" native-type="submit">
               登录
             </van-button>
           </div>
@@ -119,47 +113,23 @@ input::-webkit-input-placeholder {
   justify-content: center;
 }
 .img1 {
-  height: 190px;
+  height: 90px;
 }
 .box {
-  width: 750px;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 .box div {
-  width: 700px;
+  width: 100%;
   text-align: center;
 }
-.input1 {
-  height: 120px;
-  font-size: 28px;
-}
-.input2 {
-  font-size: 28px;
-  height: 130px;
-}
-.input3 {
-  font-size: 30px;
-  height: 80px;
-}
-.input4 {
-  font-size: 30px;
-  height: 80px;
-  border: 1px solid rgb(246, 248, 242);
-}
-.input5 {
-  font-size: 30px;
-  height: 80px;
-  border-left: 1px solid rgb(246, 248, 242);
-  border-right: 1px solid rgb(246, 248, 242);
-  border-bottom: 1px solid rgb(246, 248, 242);
-}
 .box1 {
-  width: 750px;
+  width: 100%;
   display: flex;
   justify-content: center;
   div {
-    width: 700px;
+    width: 100%;
     text-align: center;
     color: rgb(85, 132, 226);
   }

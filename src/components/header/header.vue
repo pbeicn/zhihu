@@ -25,8 +25,8 @@ export default {
   color: rgba(51, 51, 51, 1);
 }
 .box_reg {
-  width: 745px;
-  height: 100px;
+  width: 100%;
+  height: 50px;
   // backgsround: rgb(185, 44, 44);
   border-bottom: 1px solid rgb(235, 227, 227);
   display: flex;
@@ -35,12 +35,12 @@ export default {
   text-align: center;
 }
 .box_reg div:nth-of-type(1) {
-  font-size: 36px;
+  font-size: 15px;
   // background: rgb(102, 29, 170);
   flex-grow: 1;
 }
 .box_reg div:nth-of-type(2) {
-  font-size: 36px;
+  font-size: 15px;
   // background: rgb(185, 44, 44);
   flex-grow: 9;
 }
