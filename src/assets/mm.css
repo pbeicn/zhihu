@@ -2931,6 +2931,7 @@ textarea {
   font-size: 1.2em;
   line-height: inherit;
   vertical-align: top;
+  
 }
 .van-button__icon + .van-button__text,
 .van-button__loading + .van-button__text {
