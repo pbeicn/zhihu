@@ -45,8 +45,8 @@
           />
           <br />
           <br />
-          <div>
-            <van-button round block type="info" native-type="submit">
+          <div class="bo1">
+            <van-button class="bo" round block type="info" native-type="submit">
               登录
             </van-button>
           </div>
@@ -57,13 +57,16 @@
     <br />
     <div class="box1">
       <div>
-        <router-link to="/reg" style="color: #108EE9">注册新用户</router-link>
+        <router-link to="/reg" style="color: #108EE9;width:80%"
+          >注册新用户</router-link
+        >
       </div>
       <div>找回密码</div>
     </div>
   </div>
 </template>
 <script>
+import { Dialog } from "vant";
 export default {
   data() {
     return {
@@ -77,18 +80,22 @@ export default {
   methods: {
     onSubmit() {
       sessionStorage.clear();
-      // alert(this.username);
-      // alert(this.password);
       this.$ajax
-        .get(
-          "/sisp-business/api/v0/person/personinfo/baseAndInsInfoByAae135AndAae140/130921198901162231/31"
-        )
+        .post("/api/login", this.logininfo)
         .then(res => {
           window.console.log(res);
+          this.tipinfos(res.data.message);
         })
         .catch(res => {
           window.console.log(res);
         });
+    },
+    tipinfos(info) {
+      Dialog.alert({
+        message: info
+      }).then(() => {
+        // on close
+      });
     }
   }
 };
@@ -111,6 +118,7 @@ input::-webkit-input-placeholder {
 
 .box1 {
   justify-content: center;
+  font-size: 14px;
 }
 .img1 {
   height: 90px;
@@ -119,6 +127,15 @@ input::-webkit-input-placeholder {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+.bo1 {
+  // background: rgb(124, 98, 219);
+  display: flex;
+  justify-content: center;
+}
+.bo {
+  width: 80%;
+  // background: rgb(153, 243, 7);
 }
 .box div {
   width: 100%;
