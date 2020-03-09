@@ -4781,8 +4781,8 @@ textarea {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
-  font-size: 40px;
-  line-height: 60px;
+  font-size: 14px;
+  line-height: 40px;
   text-align: center;
 }
 .van-pagination__item {
@@ -4790,8 +4790,8 @@ textarea {
   -webkit-flex: 1;
   flex: 1;
   box-sizing: border-box;
-  min-width: 50px;
-  height: 60px;
+  min-width: 36px;
+  height: 40px;
   color: #1989fa;
   background-color: #fff;
   cursor: pointer;

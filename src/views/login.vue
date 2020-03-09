@@ -45,14 +45,8 @@
           />
           <br />
           <br />
-          <div>
-            <van-button
-              round
-              block
-              type="info"
-              class="input3"
-              native-type="submit"
-            >
+          <div class="bo1">
+            <van-button class="bo" round block type="info" native-type="submit">
               登录
             </van-button>
           </div>
@@ -63,13 +57,16 @@
     <br />
     <div class="box1">
       <div>
-        <router-link to="/reg" style="color: #108EE9">注册新用户</router-link>
+        <router-link to="/reg" style="color: #108EE9;width:80%"
+          >注册新用户</router-link
+        >
       </div>
       <div>找回密码</div>
     </div>
   </div>
 </template>
 <script>
+import { Dialog } from "vant";
 export default {
   data() {
     return {
@@ -83,18 +80,22 @@ export default {
   methods: {
     onSubmit() {
       sessionStorage.clear();
-      // alert(this.username);
-      // alert(this.password);
       this.$ajax
-        .get(
-          "/sisp-business/api/v0/person/personinfo/baseAndInsInfoByAae135AndAae140/130921198901162231/31"
-        )
+        .post("/api/login", this.logininfo)
         .then(res => {
           window.console.log(res);
+          this.tipinfos(res.data.message);
         })
         .catch(res => {
           window.console.log(res);
         });
+    },
+    tipinfos(info) {
+      Dialog.alert({
+        message: info
+      }).then(() => {
+        // on close
+      });
     }
   }
 };
@@ -117,49 +118,35 @@ input::-webkit-input-placeholder {
 
 .box1 {
   justify-content: center;
+  font-size: 14px;
 }
 .img1 {
-  height: 190px;
+  height: 90px;
 }
 .box {
-  width: 750px;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
+.bo1 {
+  // background: rgb(124, 98, 219);
+  display: flex;
+  justify-content: center;
+}
+.bo {
+  width: 80%;
+  // background: rgb(153, 243, 7);
+}
 .box div {
-  width: 700px;
+  width: 100%;
   text-align: center;
 }
-.input1 {
-  height: 120px;
-  font-size: 28px;
-}
-.input2 {
-  font-size: 28px;
-  height: 130px;
-}
-.input3 {
-  font-size: 30px;
-  height: 80px;
-}
-.input4 {
-  font-size: 30px;
-  height: 80px;
-  border: 1px solid rgb(246, 248, 242);
-}
-.input5 {
-  font-size: 30px;
-  height: 80px;
-  border-left: 1px solid rgb(246, 248, 242);
-  border-right: 1px solid rgb(246, 248, 242);
-  border-bottom: 1px solid rgb(246, 248, 242);
-}
 .box1 {
-  width: 750px;
+  width: 100%;
   display: flex;
   justify-content: center;
   div {
-    width: 700px;
+    width: 100%;
     text-align: center;
     color: rgb(85, 132, 226);
   }

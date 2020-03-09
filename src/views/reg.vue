@@ -1,18 +1,16 @@
 <template>
   <div>
-    <div id="reg" class="reg_reg">
+    <div id="reg">
       <Header :title="titlemsg"></Header>
     </div>
     <br />
     <br />
-    <br />
-    <div class="box">
+    <div>
       <div>
         <van-form @submit="regUser">
           <van-field
             v-model="user.phone"
             name=""
-            class="input3"
             label=""
             placeholder="请输入注册手机号码"
             :rules="[{ required: true, message: '请填写手机号码' }]"
@@ -22,7 +20,6 @@
             v-model="user.password"
             type="password"
             name=""
-            class="input3"
             label=""
             placeholder="请设置6-20位登录密码"
             :rules="[{ required: true, message: '请设置6-20位登录密码' }]"
@@ -32,7 +29,6 @@
             v-model="user.reppassword"
             type="password"
             name=""
-            class="input3"
             label=""
             placeholder="请再次确认登录密码"
             :rules="[{ required: true, message: '请再次确认登录密码' }]"
@@ -41,14 +37,8 @@
           <br />
           <br />
           <br />
-          <div>
-            <van-button
-              round
-              block
-              type="info"
-              class="input3"
-              native-type="submit"
-            >
+          <div class="bo1">
+            <van-button class="bo" round block type="info" native-type="submit">
               注册
             </van-button>
           </div>
@@ -86,61 +76,70 @@ export default {
     regUser() {
       window.console.log(this.user);
       if (this.user.password != this.user.reppassword) {
-        Dialog.alert({
-          message: "两次密码输入不一致"
-        }).then(() => {
-          // on close
-        });
+        this.tipinfos("两次密码输入不一致");
+        return;
       }
+      if (this.user.phone.length != 11) {
+        this.tipinfos("手机号长度不正确");
+        return;
+      }
+      if (this.user.password.length < 6) {
+        this.tipinfos("密码长度请大于6位");
+        return;
+      }
+      this.user.username = this.user.phone;
+      // let that = this;
       this.$ajax
-        .put("/api/v1/register/user", this.user)
+        .post("/api/reg", this.user)
         .then(res => {
           window.console.log(res);
+          window.console.log("a1" + res.code);
+          window.console.log("a2" + res.data.code);
           this.tipinfo = res.data.message;
-          this.success();
+          this.tipinfos(res.data.message);
         })
-        .catch(res => {
-          window.console.log(res);
+        .catch(function(error) {
+          if (error.response) {
+            window.console.log("AAA" + error.response.data.message);
+            window.console.log("11111111");
+          } else if (error.request) {
+            window.console.log("22222222222");
+            window.console.log(error.request);
+          } else {
+            window.console.log("333333333333");
+            window.console.log("Error", error.message);
+          }
+          window.console.log("4444444444");
+          window.console.log(error.config);
         });
     },
-    success() {
-      this.$success({
-        title: "成功提示",
-        // JSX support
-        content: this.tipinfo
+    tipinfos(info) {
+      Dialog.alert({
+        message: info
+      }).then(() => {
+        // on close
       });
     }
   }
 };
 </script>
 <style lang="less" scoped>
-.reg_reg {
-  background: rgba(245, 245, 245, 1);
-  position: relative;
-}
-.reg_h3 {
-  width: 390px;
-  height: 50px;
-  font-size: 36px;
-  font-family: PingFangSC-Medium, PingFang SC;
-  font-weight: 800;
-  color: rgba(51, 51, 51, 1);
-  line-height: 50px;
-}
 .box {
-  width: 750px;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 .box div {
-  width: 700px;
+  width: 100%;
   text-align: center;
 }
-.box1 {
+.bo1 {
+  // background: rgb(124, 98, 219);
+  display: flex;
   justify-content: center;
 }
-.input3 {
-  font-size: 30px;
-  height: 80px;
+.bo {
+  width: 80%;
+  // background: rgb(153, 243, 7);
 }
 </style>
