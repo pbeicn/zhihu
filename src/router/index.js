@@ -2,7 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import login from "../views/login.vue";
 import reg from "@/views/reg.vue";
-
+import orderReceive from "../views/OrderReceive/OrderReceive";
+import orderReceiveList from "../views/OrderReceive/OrderReceiveList";
+import orderReceiveDetail from "../views/OrderReceive/OrderReceiveDetail";
 Vue.use(VueRouter);
 
 const routes = [
@@ -15,7 +17,22 @@ const routes = [
     path: "/reg",
     name: "reg",
     component: reg
-  }
+  },
+    {
+        path: "/orderReceive",
+        name: "orderReceive",
+        component: orderReceive,
+        children: [{
+            path: "/orderReceive/orderReceiveList",
+            name: "orderReceiveList",
+            component: orderReceiveList
+        }]
+    },
+    {
+        path: "/orderReceive/orderReceiveDetail",
+        name: "orderReceiveDetail",
+        component: orderReceiveDetail
+    }
 ];
 
 const router = new VueRouter({

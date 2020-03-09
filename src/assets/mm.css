@@ -4,6 +4,11 @@ html {
 body {
   margin: 0;
 }
+html body{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
 a {
   text-decoration: none;
 }
@@ -2593,7 +2598,7 @@ textarea {
   display: inline-block;
   margin-left: 8px;
   color: #969799;
-  font-size: 14px;
+  font-size: 28px;
   vertical-align: middle;
 }
 .van-loading--vertical {
@@ -2718,7 +2723,7 @@ textarea {
   height: 50px;
   overflow: hidden;
   color: #969799;
-  font-size: 14px;
+  font-size: 28px;
   line-height: 50px;
   text-align: center;
   -webkit-transform: translateY(-100%);
@@ -3204,8 +3209,8 @@ textarea {
   min-height: 90px;
   padding: 16px;
   color: #fff;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 28px;
+  line-height: 30px;
   white-space: pre-wrap;
   text-align: center;
   word-wrap: break-word;
@@ -4776,8 +4781,8 @@ textarea {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
-  font-size: 14px;
-  line-height: 40px;
+  font-size: 40px;
+  line-height: 60px;
   text-align: center;
 }
 .van-pagination__item {
@@ -4785,8 +4790,8 @@ textarea {
   -webkit-flex: 1;
   flex: 1;
   box-sizing: border-box;
-  min-width: 36px;
-  height: 40px;
+  min-width: 50px;
+  height: 60px;
   color: #1989fa;
   background-color: #fff;
   cursor: pointer;
