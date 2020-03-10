@@ -84,7 +84,8 @@ export default {
         .post("/api/login", this.logininfo)
         .then(res => {
           window.console.log(res);
-          this.tipinfos(res.data.message);
+          // this.tipinfos(res.data.message);
+          this.$router.push("/resetpassword");
         })
         .catch(res => {
           window.console.log(res);

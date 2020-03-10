@@ -1,10 +1,13 @@
 /* eslint-disable prettier/prettier */
 module.exports = {
   devServer: {
-    "/api": {
-      target: "http://localhost:9000",
-      ws: true,
-      changeOrigin: true
+    port: 8081,
+    proxy: {
+      "/api": {
+        target: "http://10.19.192.95:9000",
+        ws: true,
+        changeOrigin: true
+      }
     }
   }
 };
