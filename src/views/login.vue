@@ -85,6 +85,10 @@ export default {
         .then(res => {
           window.console.log(res);
           // this.tipinfos(res.data.message);
+          sessionStorage.setItem(
+            "access_token",
+            "bearer" + res.data.access_token
+          );
           this.$router.push("/resetpassword");
         })
         .catch(res => {
