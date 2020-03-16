@@ -85,11 +85,12 @@ export default {
         .then(res => {
           window.console.log(res);
           // this.tipinfos(res.data.message);
-          sessionStorage.setItem(
-            "access_token",
-            "bearer" + res.data.access_token
-          );
-          this.$router.push("/resetpassword");
+          if (res.data.code == "0") {
+            sessionStorage.setItem("access_token", res.data.token);
+            this.$router.push("/resetpassword");
+          } else {
+            this.tipinfos(res.data.message);
+          }
         })
         .catch(res => {
           window.console.log(res);
