@@ -43,13 +43,15 @@
         </van-form>
       </div>
     </div>
+    <Foot></Foot>
   </div>
 </template>
 <script>
 import Header from "@/components/header/header.vue";
+import Foot from "@/components/footer/foot.vue";
 import { Dialog } from "vant";
 export default {
-  components: { Header },
+  components: { Header, Foot },
   data() {
     return {
       titlemsg: "重置密码",
