@@ -27,19 +27,18 @@
         name: 'orl',
         watch: {
             $route() {
-                var index = this.$route.query.tabIndex;
-                if (index == "点赞") {
-                    this.ordertype = "点赞";
-                } else {
-                    this.ordertype = "反对";
-                }
+                this.orderType= this.$route.query.tabIndex;
+                this.loadData();
             }
         },
 
         data() {
             return {
                 isLoading: false,
-                dataList: ['apple', 'orange', 'banana','apple', 'orange', 'banana','apple', 'orange', 'banana'],
+                dataList: [],
+                pageSize:10,
+                pageNo:1,
+                orderType:1
             }
         },
         methods: {
@@ -48,6 +47,33 @@
                     this.$toast('加载成功');
                     this.isLoading = false;
                 }, 1000);
+            },
+            loadData(){
+               // alert(this.orderType);
+                this.$ajax
+                    .get("/api/getorderpage", {orderType:this.orderType})
+                    .then(res => {
+                       window.console.log(res);
+                        /*  window.console.log("a1" + res.code);
+                         window.console.log("a2" + res.data.code);
+                         this.tipinfo = res.data.message;
+                         this.tipinfos(res.data.message);*/
+                    })
+                    .catch(function(error) {
+                        window.console.log(error);
+                        /*if (error.response) {
+                            window.console.log("AAA" + error.response.data.message);
+                            window.console.log("11111111");
+                        } else if (error.request) {
+                            window.console.log("22222222222");
+                            window.console.log(error.request);
+                        } else {
+                            window.console.log("333333333333");
+                            window.console.log("Error", error.message);
+                        }
+                        window.console.log("4444444444");
+                        window.console.log(error.config);*/
+                    });
             }
         }
     }
