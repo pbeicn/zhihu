@@ -33,12 +33,12 @@
 <style>
   .tabs{
     width: 100%;
-    height:70px;
+    height:35px;
   }
   .tab{
-    height: 70px;
-    line-height: 70px;
-    font-size: 30px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 16px;
     text-align:center;
     vertical-align:middle;
   }

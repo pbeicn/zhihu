@@ -1,81 +1,82 @@
 <template>
     <div id="orl" v-bind:class="['list']">
-        <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+        <van-list v-model="loading"
+                :finished="finished"
+                finished-text="没有更多了" @load="onLoad">
             <div  v-for="(item, index) in dataList" :key="index">
                 <div v-bind:class="['orderTitleRow']">
                     <div v-bind:class="['type']">知</div>
-                    <div v-bind:class="['title']">托福是自学好还是报班好？</div>
+                    <div v-bind:class="['title']">{{item.ordertitle}}</div>
                 </div>
                 <div v-bind:class="['orderRequest']">
-                    <span v-bind:class="['count']">粉丝数最低:1000</span>
+                    <span v-bind:class="['count']">粉丝数最低:{{item.fensi}}</span>
                     <router-link v-bind:class="['view']" to="/orderReceive/orderReceiveDetail">查看
                         <van-icon name="arrow"/>
                     </router-link>
                 </div>
                 <div v-bind:class="['orderRequest']">
-                    <span v-bind:class="['price']">单价:3.3元  需求数量:10</span>
+                    <span v-bind:class="['price']">单价:{{item.price}}元  需求数量:{{item.needcnt}}</span>
                 </div>
                 <div v-bind:class="['orderRequestButtom']">
                 </div>
             </div>
-        </van-pull-refresh>
+        </van-list>
     </div>
 
 </template>
 <script type="text/javascript">
+    var self;//全局Vue对象
     export default {
         name: 'orl',
+        mounted() {//vue加载完成后运行
+            self = this;
+        },
         watch: {
             $route() {
                 this.orderType= this.$route.query.tabIndex;
-                this.loadData();
+                this.pageNo=0;
+                this.dataList=[];
+                this.onLoad();
             }
         },
 
         data() {
             return {
-                isLoading: false,
                 dataList: [],
-                pageSize:10,
-                pageNo:1,
+                pageNo:0,
+                loading: false,
+                finished: false,
                 orderType:1
             }
         },
         methods: {
-            onRefresh() {
-                setTimeout(() => {
-                    this.$toast('加载成功');
-                    this.isLoading = false;
-                }, 1000);
-            },
-            loadData(){
-               // alert(this.orderType);
+            onLoad(){
+                self.pageNo=self.pageNo+1;
                 this.$ajax
-                    .get("/api/getorderpage", {orderType:this.orderType})
+                    .get("/api/getorderpage/"+self.pageNo+"/10", {params:{ordertype:self.orderType}})
                     .then(res => {
-                       window.console.log(res);
-                        /*  window.console.log("a1" + res.code);
-                         window.console.log("a2" + res.data.code);
-                         this.tipinfo = res.data.message;
-                         this.tipinfos(res.data.message);*/
+                        if(res.data.code!=undefined&&res.data.code!="204"){
+                            var dataArr=res.data.data.content;
+                            var totalRow=res.data.data.totalSize;
+                            self.loading=false;
+                            if(self.pageNo*10>=totalRow){
+                                self.finished = true;
+                            }
+                            for(var index in dataArr){
+                                self.dataList.push(dataArr[index]);
+                            }
+                        }
+                        self.loading=false;
+
                     })
                     .catch(function(error) {
+                        self.loading=false;
+                        self.finished = true;
                         window.console.log(error);
-                        /*if (error.response) {
-                            window.console.log("AAA" + error.response.data.message);
-                            window.console.log("11111111");
-                        } else if (error.request) {
-                            window.console.log("22222222222");
-                            window.console.log(error.request);
-                        } else {
-                            window.console.log("333333333333");
-                            window.console.log("Error", error.message);
-                        }
-                        window.console.log("4444444444");
-                        window.console.log(error.config);*/
                     });
             }
         }
+
     }
 </script>
 <style>
@@ -92,10 +93,10 @@
 
     .orderTitleRow .type {
         background-color: #5FBCEC;
-        height: 35px;
-        width: 35px;
-        line-height: 35px;
-        font-size: 20px;
+        height: 20px;
+        width: 20px;
+        line-height: 20px;
+        font-size: 16px;
         text-align: center;
         vertical-align: middle;
         color: white;
@@ -103,10 +104,10 @@
     }
 
     .orderTitleRow .title {
-        height: 35px;
-        margin-left: 50px;
-        line-height: 35px;
-        font-size: 30px;
+        height: 23px;
+        margin-left: 30px;
+        line-height: 23px;
+        font-size: 16px;
         text-align: left;
         vertical-align: middle;
         font-family: "Arial Negreta", "Arial Normal", Arial;
@@ -117,7 +118,7 @@
     }
 
     .orderRequest {
-        margin-top: 20px;
+        //margin-top: 20px;
         width: 100%;
         height: 40px;
     }
@@ -126,7 +127,7 @@
         float: left;
         height: 35px;
         line-height: 35px;
-        font-size: 30px;
+        font-size: 16px;
         text-align: left;
         vertical-align: middle;
         font-family: "Arial Negreta", "Arial Normal", Arial;
@@ -142,7 +143,7 @@
         /*padding-right: 50px;*/
         height: 35px;
         line-height: 35px;
-        font-size: 30px;
+        font-size: 16px;
         text-align: left;
         vertical-align: middle;
         font-family: "Arial Negreta", "Arial Normal", Arial;
@@ -156,7 +157,7 @@
         float: left;
         height: 35px;
         line-height: 35px;
-        font-size: 30px;
+        font-size: 16px;
         text-align: left;
         vertical-align: middle;
         font-family: "Arial Negreta", "Arial Normal", Arial;
