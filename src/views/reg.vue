@@ -17,6 +17,22 @@
           />
           <br />
           <van-field
+            v-model="user.sms"
+            center
+            clearable
+            label=""
+            placeholder="请输入短信验证码"
+          >
+            <van-button
+              slot="button"
+              size="small"
+              type="primary"
+              @click="sendSms()"
+              >发送验证码</van-button
+            >
+          </van-field>
+          <br />
+          <van-field
             v-model="user.password"
             type="password"
             name=""
@@ -67,6 +83,8 @@ export default {
       tipinfo: "",
       user: {
         phone: "",
+        sms: "",
+        hiddensms: "",
         password: "",
         reppassword: ""
       }
@@ -83,6 +101,14 @@ export default {
         this.tipinfos("手机号长度不正确");
         return;
       }
+      if (this.user.sms.length != 6) {
+        this.tipinfos("请填写6位数字验证码");
+        return;
+      }
+      if (this.user.sms != this.user.hiddensms) {
+        this.tipinfos("验证码填写不正确");
+        return;
+      }
       if (this.user.password.length < 6) {
         this.tipinfos("密码长度请大于6位");
         return;
@@ -93,8 +119,6 @@ export default {
         .post("/api/reg", this.user)
         .then(res => {
           window.console.log(res);
-          window.console.log("a1" + res.code);
-          window.console.log("a2" + res.data.code);
           this.tipinfo = res.data.message;
           this.tipinfos(res.data.message);
         })
@@ -111,6 +135,22 @@ export default {
           }
           window.console.log("4444444444");
           window.console.log(error.config);
+        });
+    },
+    sendSms() {
+      if (this.user.phone.length != 11) {
+        this.tipinfos("手机号长度不正确");
+        return;
+      }
+      this.$ajax
+        .get("/api/sendsms?phone=" + this.user.phone)
+        .then(res => {
+          window.console.log(res);
+          this.user.hiddensms = res.data.data;
+          this.tipinfos("本次验证码:" + res.data.data);
+        })
+        .catch(function(error) {
+          window.console.log("AAA" + error);
         });
     },
     tipinfos(info) {

@@ -84,7 +84,6 @@ export default {
         .post("/api/login", this.logininfo)
         .then(res => {
           window.console.log(res);
-          // this.tipinfos(res.data.message);
           if (res.data.code == "0") {
             sessionStorage.setItem("access_token", res.data.token);
             this.$router.push("/resetpassword");
