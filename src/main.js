@@ -15,9 +15,11 @@ Vue.config.productionTip = false;
 axios.interceptors.request.use(
   config => {
     let authtoken = sessionStorage.getItem("access_token");
-    if (authtoken !== null && config.url !== "/people/wo-bu-shi-da-v-64") {
-      window.console.log(config.url);
-      config.headers.Authorization = authtoken;
+    if (authtoken !== null) {
+      if (config.url.indexOf("/people") == -1) {
+        window.console.log(config.url);
+        config.headers.Authorization = authtoken;
+      }
     }
     return config;
   },
