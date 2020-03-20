@@ -150,7 +150,7 @@ export default {
           this.tipinfos("本次验证码:" + res.data.data);
         })
         .catch(function(error) {
-          window.console.log("AAA" + error);
+          window.console.log("AAAA" + error);
         });
     },
     tipinfos(info) {
