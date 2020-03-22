@@ -82,7 +82,6 @@ export default {
       this.user.username = this.user.phone;
       // let that = this;
       this.$ajax
-        // .post("/people/modifypassword", this.user)
         .post("/api/modifypassword", this.user)
         .then(res => {
           window.console.log(res);
