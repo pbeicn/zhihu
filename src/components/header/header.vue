@@ -1,14 +1,25 @@
 <template>
   <div class="box_reg box_reg-center">
-    <div class="reg_h2">
+    <!-- <div class="reg_h2">
       <router-link to="/" style="color: #108EE9">返回</router-link>
     </div>
-    <div class="reg_h3">{{ title }}</div>
+    <div class="reg_h3">{{ title }}</div> -->
+    <van-nav-bar
+      :title="title"
+      left-text="返回"
+      left-arrow
+      @click-left="onClickLeft"
+    />
   </div>
 </template>
 <script>
 export default {
-  props: { title: String }
+  props: { title: String },
+  methods: {
+    onClickLeft() {
+      this.$router.push("/");
+    }
+  }
 };
 </script>
 <style lang="less" scoped>

@@ -5,6 +5,7 @@ import reg from "@/views/reg.vue";
 import orderReceive from "../views/OrderReceive/OrderReceive";
 import orderReceiveList from "../views/OrderReceive/OrderReceiveList";
 import orderReceiveDetail from "../views/OrderReceive/OrderReceiveDetail";
+import findpsw from "@/views/findpsw.vue";
 import resetpassword from "@/views/resetpassword.vue";
 
 Vue.use(VueRouter);
@@ -19,6 +20,11 @@ const routes = [
     path: "/reg",
     name: "reg",
     component: reg
+  },
+  {
+    path: "/findpsw",
+    name: "findpsw",
+    component: findpsw
   },
   {
     path: "/resetpassword",

@@ -61,7 +61,11 @@
           >注册新用户</router-link
         >
       </div>
-      <div>找回密码</div>
+      <div>
+        <router-link to="/findpsw" style="color: #108EE9;width:80%"
+          >找回密码</router-link
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -84,7 +88,6 @@ export default {
         .post("/api/login", this.logininfo)
         .then(res => {
           window.console.log(res);
-          // this.tipinfos(res.data.message);
           if (res.data.code == "0") {
             sessionStorage.setItem("access_token", res.data.token);
             this.$router.push("/orderReceive/orderReceiveDetail?orderid=2");
