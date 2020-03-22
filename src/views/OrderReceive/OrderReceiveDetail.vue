@@ -161,7 +161,12 @@
                 this.$ajax
                     .post("/api/takeorder", self.order)
                     .then(res => {
-                        self.currentUser=res.data.data;
+                        if(res.data.code!=null&&res.data.code!=undefined&&res.data.code!="0"){
+                           self.$toast.fail(res.data.message);
+                        }else{
+                            console.log(res);
+                        }
+
                     })
                     .catch(function(error) {
                         window.console.log(error);
