@@ -148,7 +148,7 @@ export default {
           window.console.log("AAAA" + error);
         });
     },
-    // 倒计时方法
+    // 倒计时 方法
     countDown(time) {
       if (time === 0) {
         this.smsdis = false;

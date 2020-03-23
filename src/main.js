@@ -27,7 +27,7 @@ axios.interceptors.request.use(
   }
 );
 
-// 使用钩子函数对路由进行权限跳转
+// 使用钩子函数对路由进行权限跳 转
 router.beforeEach((to, from, next) => {
   const role = sessionStorage.getItem("access_token");
   window.console.log(to.path);
