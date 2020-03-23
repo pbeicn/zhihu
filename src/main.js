@@ -6,7 +6,6 @@ import qs from "qs";
 import store from "./store";
 import Vant from "vant";
 import "vant/lib/index.css";
-
 Vue.prototype.$ajax = axios;
 Vue.prototype.$qs = qs;
 Vue.use(Vant);
@@ -33,7 +32,7 @@ router.beforeEach((to, from, next) => {
   const role = sessionStorage.getItem("access_token");
   window.console.log(to.path);
   window.console.log(role);
-  if (to.path == "/reg") {
+  if (to.path == "/reg" || to.path == "/findpsw") {
     sessionStorage.removeItem("access_token");
     next();
   } else {

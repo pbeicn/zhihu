@@ -26,10 +26,11 @@
             <van-button
               slot="button"
               size="small"
+              :disabled="smsdis"
               type="primary"
               @click="sendSms()"
-              >发送验证码</van-button
-            >
+              >{{ buttonvalue }}</van-button
+            ><van-count-down :time="time" />
           </van-field>
           <br />
           <van-field
@@ -80,7 +81,10 @@ export default {
     return {
       titlemsg: "新用户注册",
       name: "ss",
+      time: 60 * 1000,
       tipinfo: "",
+      smsdis: false,
+      buttonvalue: "发送验证码",
       user: {
         phone: "",
         sms: "",
@@ -123,18 +127,7 @@ export default {
           this.tipinfos(res.data.message);
         })
         .catch(function(error) {
-          if (error.response) {
-            window.console.log("AAA" + error.response.data.message);
-            window.console.log("11111111");
-          } else if (error.request) {
-            window.console.log("22222222222");
-            window.console.log(error.request);
-          } else {
-            window.console.log("333333333333");
-            window.console.log("Error", error.message);
-          }
-          window.console.log("4444444444");
-          window.console.log(error.config);
+          window.console.log(error);
         });
     },
     sendSms() {
@@ -146,13 +139,31 @@ export default {
         .get("/api/sendsms?phone=" + this.user.phone)
         .then(res => {
           window.console.log(res);
-          this.user.hiddensms = res.data.data;
-          // this.tipinfos("本次验证码:" + res.data.data);
+          this.buttonvalue = "";
+          this.smsdis = true;
+          this.countDown(60);
+          this.tipinfos("本次验证码:" + res.data.data);
         })
         .catch(function(error) {
           window.console.log("AAAA" + error);
         });
     },
+    // 倒计时方法
+    countDown(time) {
+      if (time === 0) {
+        this.smsdis = false;
+        this.buttonvalue = "发送验证码";
+        return;
+      } else {
+        this.smsdis = true;
+        this.buttonvalue = "重新发送(" + time + ")";
+        time--;
+      }
+      setTimeout(() => {
+        this.countDown(time);
+      }, 1000);
+    },
+
     tipinfos(info) {
       Dialog.alert({
         message: info
