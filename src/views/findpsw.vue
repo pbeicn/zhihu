@@ -101,7 +101,7 @@ export default {
         .then(res => {
           window.console.log(res);
           this.user.hiddensms = res.data.data;
-        //   this.tipinfos("本次验证码:" + res.data.data);
+          //   this.tipinfos("本次验证码:" + res.data.data);
           return;
         })
         .catch(function(error) {

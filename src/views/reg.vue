@@ -39,7 +39,6 @@
             name=""
             label=""
             placeholder="请设置6-20位登录密码"
-            :rules="[{ required: true, message: '请设置6-20位登录密码' }]"
           />
           <br />
           <van-field
@@ -48,7 +47,6 @@
             name=""
             label=""
             placeholder="请再次确认登录密码"
-            :rules="[{ required: true, message: '请再次确认登录密码' }]"
           />
           <br />
           <br />
