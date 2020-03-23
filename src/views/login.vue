@@ -90,7 +90,7 @@ export default {
           window.console.log(res);
           if (res.data.code == "0") {
             sessionStorage.setItem("access_token", res.data.token);
-            this.$router.push("/resetpassword");
+            this.$router.push("/orderReceive/orderReceiveDetail?orderid=2");
           } else {
             this.tipinfos(res.data.message);
           }

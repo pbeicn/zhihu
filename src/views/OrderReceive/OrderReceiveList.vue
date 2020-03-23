@@ -10,7 +10,7 @@
                 </div>
                 <div v-bind:class="['orderRequest']">
                     <span v-bind:class="['count']">粉丝数最低:{{item.fensi}}</span>
-                    <router-link v-bind:class="['view']" to="/orderReceive/orderReceiveDetail">查看
+                    <router-link v-bind:class="['view']" tag="a" :to="{path:'/orderReceive/orderReceiveDetail',query:{orderid:item.orderid}}">查看
                         <van-icon name="arrow"/>
                     </router-link>
                 </div>

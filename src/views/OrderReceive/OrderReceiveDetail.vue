@@ -6,7 +6,7 @@
                 标题
             </van-col>
             <van-col span="18" class="font_left tablecol">
-                托福是自学好还是报班好?
+                {{order.ordertitle}}
             </van-col>
         </van-row>
         <van-row class="tablerow">
@@ -14,7 +14,7 @@
                 连接
             </van-col>
             <van-col span="18" class="font_left tablecol">
-                https://www.zhihu.com/question/367513973
+                {{order.orderurl}}
             </van-col>
         </van-row>
         <van-row class="tablerow">
@@ -30,7 +30,7 @@
                 单价
             </van-col>
             <van-col span="18" class="font_left tablecol">
-                3.3元
+                {{order.price}}元
             </van-col>
         </van-row>
         <van-row class="tablerow">
@@ -38,7 +38,7 @@
                 粉丝要求
             </van-col>
             <van-col span="18" class="font_left tablecol">
-                1000起
+                {{order.fensi}}起
             </van-col>
         </van-row>
         <van-row class="tablerow">
@@ -46,11 +46,11 @@
                 订单状态
             </van-col>
             <van-col span="18" class="font_left tablecol">
-                待抢单
+                {{order.orderstate}}
             </van-col>
         </van-row>
 
-        <div class="step">立即抢单(第一步)</div>
+        <div class="step" @click="takeorder">立即抢单(第一步)</div>
         <div class="step">跳转到知乎该回答处 (第2步）</div>
         <div class="step step3">确认已点赞（第3步）</div>
 
@@ -61,7 +61,7 @@
                         点赞ID
                     </van-col>
                     <van-col span="16" class="font_left tablecol">
-                        我是小王
+                        {{currentUser.username}}
                     </van-col>
                 </van-row>
                 <van-row  class="tablerow">
@@ -118,13 +118,62 @@
 
 </template>
 <script type="text/javascript">
+    var self;
     export default {
         name: 'ord',
+        mounted() {//vue加载完成后运行
+            self = this;
+            this.orderid= this.$route.query.orderid;
+            this.onLoad();
+        },
 
         data() {
-            return {}
+            return {
+                orderid:"",
+                order:{},
+                currentUser:{},
+                ordertake:{}
+            }
         },
-        methods: {}
+        methods: {
+            onLoad:function () {
+                //获取订单信息
+                this.$ajax
+                    .get("/api/getorderdetail", {params:{orderid:self.orderid}})
+                    .then(res => {
+                        self.order=res.data.data;
+                    })
+                    .catch(function(error) {
+                        window.console.log(error);
+                    });
+                //获取当前用户
+                this.$ajax
+                    .get("/api/getuserinfo")
+                    .then(res => {
+                        self.currentUser=res.data.data;
+                    })
+                    .catch(function(error) {
+                        window.console.log(error);
+                    });
+            },
+            takeorder:function () {
+                console.log("抢单");
+                this.$ajax
+                    .post("/api/takeorder", self.order)
+                    .then(res => {
+                        if(res.data.code!=null&&res.data.code!=undefined&&res.data.code!="0"){
+                           self.$toast.fail(res.data.message);
+                        }else{
+                            console.log(res);
+                        }
+
+                    })
+                    .catch(function(error) {
+                        window.console.log(error);
+                    });
+            }
+        }
+
     }
 </script>
 <style>
