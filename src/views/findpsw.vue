@@ -23,9 +23,10 @@
           <van-button
             slot="button"
             size="small"
+            :disabled="smsdis"
             type="primary"
             @click="sendSms()"
-            >发送验证码</van-button
+            >{{ buttonvalue }}</van-button
           >
         </van-field>
         <br />
@@ -79,6 +80,9 @@ export default {
       titlemsg: "找回密码",
       active: 0,
       sendcode: "",
+      time: 60 * 1000,
+      smsdis: false,
+      buttonvalue: "发送验证码",
       hascode: 0,
       wcolor: "ls",
       user: {
@@ -101,12 +105,32 @@ export default {
         .then(res => {
           window.console.log(res);
           this.user.hiddensms = res.data.data;
-          //   this.tipinfos("本次验证码:" + res.data.data);
+          this.buttonvalue = "";
+          this.smsdis = true;
+          this.countDown(60);
+          // this.tipinfos("本次验证码:" + res.data.data);
           return;
         })
         .catch(function(error) {
           window.console.log("AAAA" + error);
         });
+    },
+    // 倒计时 方法
+    countDown(time) {
+      // window.console.log(time);
+      if (time === 0) {
+        this.smsdis = false;
+        this.buttonvalue = "发送验证码";
+        clearTimeout(this.timer);
+        return;
+      } else {
+        this.smsdis = true;
+        this.buttonvalue = "重新发送(" + time + ")";
+        time--;
+      }
+      this.timer = setTimeout(() => {
+        this.countDown(time);
+      }, 1000);
     },
     checkcode() {
       if (this.user.sms != this.user.hiddensms) {
@@ -116,7 +140,7 @@ export default {
       this.active = 1;
     },
     resetpsw() {
-      window.console.log(this.user);
+      // window.console.log(this.user);
       if (this.user.password != this.user.reppassword) {
         this.tipinfos("两次密码输入不一致");
         return;

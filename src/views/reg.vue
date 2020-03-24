@@ -83,6 +83,7 @@ export default {
       tipinfo: "",
       smsdis: false,
       buttonvalue: "发送验证码",
+      timer: null,
       user: {
         phone: "",
         sms: "",
@@ -137,10 +138,11 @@ export default {
         .get("/api/sendsms?phone=" + this.user.phone)
         .then(res => {
           window.console.log(res);
+          this.user.hiddensms = res.data.data;
           this.buttonvalue = "";
           this.smsdis = true;
           this.countDown(60);
-          this.tipinfos("本次验证码:" + res.data.data);
+          // this.tipinfos("本次验证码:" + res.data.data);
         })
         .catch(function(error) {
           window.console.log("AAAA" + error);
@@ -148,16 +150,18 @@ export default {
     },
     // 倒计时 方法
     countDown(time) {
+      // window.console.log(time);
       if (time === 0) {
         this.smsdis = false;
         this.buttonvalue = "发送验证码";
+        clearTimeout(this.timer);
         return;
       } else {
         this.smsdis = true;
         this.buttonvalue = "重新发送(" + time + ")";
         time--;
       }
-      setTimeout(() => {
+      this.timer = setTimeout(() => {
         this.countDown(time);
       }, 1000);
     },
